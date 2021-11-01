@@ -1,0 +1,63 @@
+version: "3.5"
+services:
+  # Orion is the context broker
+  orion:
+    image: fiware/orion
+    
+    depends_on:
+      - mongo-db
+    networks:
+      - default
+    ports:
+      - "1026:1026" # localhost:1026
+    command: -dbhost mongo-db -logLevel DEBUG -noCache
+    healthcheck:
+      test: curl --fail -s http://orion:1026/version || exit 1
+      interval: 5s
+
+  # Databases
+  mongo-db:
+    image: mongo
+    
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017" # localhost:27017 # localhost:27017
+    networks:
+      - default
+
+  cygnus:
+    image: fiware/cygnus-ngsi
+    hostname: cygnus
+    container_name: fiware-cygnus
+    depends_on:
+        - mongo-db
+    networks:
+        - default
+    expose:
+        - "5080"
+    ports:
+        - "5051:5051"
+        - "5080:5080"
+    environment:
+        - "CYGNUS_MONGO_HOSTS=mongo-db:27017"
+        - "CYGNUS_MONGO_SERVICE_PORT=5051"
+        - "CYGNUS_LOG_LEVEL=DEBUG"
+        - "CYGNUS_API_PORT=5080"
+        - "CYGNUS_SERVICE_PORT=5051"
+
+  postgres-db:
+    image: postgres:latest
+    hostname: postgres-db
+    container_name: db-postgres
+    expose:
+        - "5432"
+    ports:
+        - "5432:5432"
+    networks:
+        - default
+    environment:
+        - "POSTGRES_PASSWORD=password"
+        - "POSTGRES_USER=postgres"
+        - "POSTGRES_DB=postgres"
+    

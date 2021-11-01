@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "e267f27d-e1be-44df-a0a6-23c5249ff1e0",
+		"name": "POST GROUP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "first",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"urn:ngsi-ld:Store:001\",\r\n    \"type\": \"Store\",\r\n    \"address\": {\r\n        \"type\": \"PostalAddress\",\r\n        \"value\": {\r\n            \"streetAddress\": \"Bornholmer Straße 65\",\r\n            \"addressRegion\": \"Berlin\",\r\n            \"addressLocality\": \"Prenzlauer Berg\",\r\n            \"postalCode\": \"10439\"\r\n        },\r\n        \"metadata\": {\r\n            \"verified\": {\r\n                \"value\": true,\r\n                \"type\": \"Boolean\"\r\n            }\r\n        }\r\n    },\r\n    \"location\": {\r\n        \"type\": \"geo:json\",\r\n        \"value\": {\r\n             \"type\": \"Point\",\r\n             \"coordinates\": [13.3986, 52.5547]\r\n        }\r\n    },\r\n    \"name\": {\r\n        \"type\": \"Text\",\r\n        \"value\": \"Bösebrücke Einkauf\"\r\n    }\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{orion}}/v2/entities",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"v2",
+						"entities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LEMONADE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"id\":\"urn:ngsi-ld:Product:010\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Lemonade\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"S\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 99}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{orion}}/v2/entities",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"v2",
+						"entities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscriptions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  'http://localhost:1026/v2/subscriptions' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -H 'fiware-service: openiot' \\\r\n  -H 'fiware-servicepath: /' \\\r\n  -d '{\r\n  \"description\": \"Notify Cygnus Mongo-DB of all context changes\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\"\r\n      }\r\n    ]\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://cygnus:5051/notify\"\r\n    }\r\n  },\r\n  \"throttling\": 5\r\n}'",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5080/v1/version",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5080",
+					"path": [
+						"v1",
+						"version"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n      \"id\":\"urn:ngsi-ld:Product:010\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Lemonade\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"S\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 99}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{orion}}/v2/entities",
+					"protocol": "http",
+					"host": [
+						"{{orion}}"
+					],
+					"path": [
+						"v2",
+						"entities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add atribute",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\"=\"urn:ngsi-ld:Product:001\"\r\n    \"header\"{:\"Content-Type: application/json\"},\r\n    \"data\"'{\"specialOffer\":{\"value\": true}} \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"entities",
+						"urn:ngsi-ld:Product:001",
+						"attrs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add two product",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"actionType\":\"append_strict\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:011\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Brandy\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1199}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:012\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Port\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1099}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:001\", \"type\":\"Product\",\r\n      \"offerPrice\":{\"type\":\"Integer\", \"value\": 89}\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/op/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"op",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "batch processing endpoint",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"actionType\":\"append\",\r\n  \"entities\":[\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:011\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Brandy\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1199}\r\n    },\r\n    {\r\n      \"id\":\"urn:ngsi-ld:Product:012\", \"type\":\"Product\",\r\n      \"name\":{\"type\":\"Text\", \"value\":\"Port\"},\r\n      \"size\":{\"type\":\"Text\", \"value\": \"M\"},\r\n      \"price\":{\"type\":\"Integer\", \"value\": 1099}\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/op/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"op",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REQUEST 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "fiware-service",
+						"value": "openiot",
+						"type": "text"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Notify Cygnus Mongo-DB of all context changes\",\r\n  \"subject\": {\r\n    \"entities\": [\r\n      {\r\n        \"idPattern\": \".*\"\r\n      }\r\n    ]\r\n  },\r\n  \"notification\": {\r\n    \"http\": {\r\n      \"url\": \"http://cygnus:5051/notify\"\r\n    }\r\n  },\r\n  \"throttling\": 5\r\n}'",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
